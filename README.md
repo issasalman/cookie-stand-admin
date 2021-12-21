@@ -1,11 +1,16 @@
 # cookie-stand-admin
 
+
 ## REPO
 [REPO](https://github.com/issasalman/cookie-stand-admin)
 
 
 ## Pull request
-[PR](https://github.com/issasalman/cookie-stand-admin/pull/1)
+[PR1](https://github.com/issasalman/cookie-stand-admin/pull/1)
+
+## Pull request
+[PR2](https://github.com/issasalman/cookie-stand-admin/pull/2)
+
 
 ## Next.js + Tailwind CSS Example
 
