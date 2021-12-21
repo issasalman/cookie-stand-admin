@@ -1,32 +1,14 @@
 import Form from './Form';
-import React, { useState } from "react";
+import ReportTable from './ReportTable';
 
 
-const Main=()=> {
-    const [cookiesData, setCookiesData] = useState("");
+function Main({ cookiesData,sumOfSums }) {
 
-    const createCookieStand=(event)=> {
-        event.preventDefault();
-        const data = {
-            location: event.target.location.value,
-            averageCookies: Number(event.target.avg.value),
-            minCustomers: Number(event.target.min.value),
-            maxCustomers: Number(event.target.max.value),
-        }
+    return (
+        <main className="flex flex-col items-center ">
+            {cookiesData.length > 0 ? <ReportTable sumOfSums={sumOfSums} cookiesData={cookiesData} /> : <p className="pt-8 text-xl  text-center">No Cookie Stands Available</p>}
 
-        setCookiesData(JSON.stringify(data));
-        
-
-    }
-    return ( 
-        <main>
-            <Form cookiestand={createCookieStand} />
-          
-                <p className="text-center mt-1">Report Table coming Soon...</p>
-                    <p className="text-center mt-2">  {cookiesData}</p>
-               
         </main>
     );
 }
-
 export default Main;

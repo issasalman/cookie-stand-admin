@@ -1,19 +1,17 @@
-import Head from 'next/head'
-import Header from '../components/Header';
-import Main from '../components/Main';
-import Footer from '../components/Footer';
+// import Head from 'next/head'
+import CookieStandAdmin from '../components/CookieStandAdmin';
 
 
- const Home=()=> {
+ const Home=(props)=> {
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Cookie Stand Admin</title>
-      </Head>
+      </Head> */}
       <body>
-        <Header />
-        <Main />
-        <Footer />
+
+        <CookieStandAdmin />
+    
       </body>
 
     </>
