@@ -1,13 +1,13 @@
-// import Head from 'next/head'
+import Headl from '../components/Head'
 import CookieStandAdmin from '../components/CookieStandAdmin';
 
 
  const Home=(props)=> {
   return (
     <>
-      {/* <Head>
+      <Headl>
         <title>Cookie Stand Admin</title>
-      </Head> */}
+      </Headl>
       <body>
 
         <CookieStandAdmin />
