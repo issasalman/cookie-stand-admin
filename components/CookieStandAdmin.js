@@ -1,11 +1,15 @@
 import Form from "./Form";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import hours from "../data";
 import Main from "./Main";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import axios from "axios";
 
-const CookieStandAdmin = () => {
+const baseUrl = "https://cookie-stand-api-issa.herokuapp.com/";
+const responsesEndPoint = baseUrl + "api/v1/cookie_stands/";
+
+const CookieStandAdmin = (props) => {
   const [cookiesData, setCookiesData] = useState([]);
   const [sumOfSums, setSumOfSums] = useState([]);
 
@@ -23,11 +27,12 @@ const CookieStandAdmin = () => {
   };
   const createCookieStand = (event) => {
     event.preventDefault();
+
     const data = {
       location: event.target.location.value,
-      averageCookies: Number(event.target.avg.value),
-      minCustomers: Number(event.target.min.value),
-      maxCustomers: Number(event.target.max.value),
+      average_cookies_per_sale: Number(event.target.avg.value),
+      minimum_customers_per_hour: Number(event.target.min.value),
+      maximum_customers_per_hour: Number(event.target.max.value),
       hourly_sales: calculateCookie(
         event.target.min.value,
         event.target.max.value,
@@ -35,7 +40,17 @@ const CookieStandAdmin = () => {
       ),
     };
 
+    const configPost = {
+      method: "POST",
+      url: responsesEndPoint,
+      headers: { Authorization: `Bearer ${props.token}` },
+      data: data,
+    };
+
+    axios(configPost);
+
     setCookiesData([...cookiesData, data]);
+
     let arr1 = [];
     let megaSum = 0;
     for (let i = 0; i < hours.length; i++) {
@@ -52,6 +67,62 @@ const CookieStandAdmin = () => {
     setSumOfSums([...arr1, megaSum]);
   };
 
+  useEffect(() => {
+    if (props.token) {
+      getRepliesFromAPI();
+    }
+  }, []);
+
+  var storeData;
+  const getRepliesFromAPI = async () => {
+    console.log("hiii");
+
+    const config = { headers: { Authorization: "Bearer " + props.token } };
+    axios.get(responsesEndPoint, config).then((res) => {
+      console.log("hiiiia", res.data);
+
+      let arr2 = [];
+      res.data.map((item) => {
+        storeData = {
+          id: item.id,
+          location: item.location,
+          avg: item.average_cookies_per_sale,
+          min: item.minimum_customers_per_hour,
+          max: item.maximum_customers_per_hour,
+          hourly_sales: item.hourly_sales,
+        };
+        arr2.push(storeData);
+        setCookiesData([...cookiesData, ...arr2]);
+
+        return storeData;
+      });
+
+      let arr1 = [];
+      let megaSum = 0;
+      for (let i = 0; i < hours.length; i++) {
+        let sum = 0;
+
+        for (let j = 0; j < cookiesData.length; j++) {
+          sum += cookiesData[j].hourly_sales[i];
+        }
+
+        sum += storeData.hourly_sales[i];
+        megaSum += sum;
+        arr1.push(sum);
+      }
+      setSumOfSums([...arr1, megaSum]);
+    });
+  
+  };
+
+  const deleteHandler =  (id) => {
+    const configDelete = {
+      method: "DELETE",
+      url: `https://cookie-stand-api-issa.herokuapp.com/api/v1/cookie_stands/${id}`,
+      headers: { Authorization: `Bearer ${props.token}` },
+    };
+     axios(configDelete).then(function (response) {});
+  };
   return (
     <main>
       <Header />
@@ -61,6 +132,7 @@ const CookieStandAdmin = () => {
         cookiesData={cookiesData}
         createCookieStand={createCookieStand}
         sumOfSums={sumOfSums}
+        deleteHandler={deleteHandler}
       />
       <Footer standCounter={cookiesData.length} />
     </main>
