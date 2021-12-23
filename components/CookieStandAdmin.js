@@ -30,6 +30,8 @@ const CookieStandAdmin = (props) => {
 
     const data = {
       location: event.target.location.value,
+      id:cookiesData.length,
+      owner:1,
       average_cookies_per_sale: Number(event.target.avg.value),
       minimum_customers_per_hour: Number(event.target.min.value),
       maximum_customers_per_hour: Number(event.target.max.value),
@@ -39,6 +41,7 @@ const CookieStandAdmin = (props) => {
         event.target.avg.value
       ),
     };
+
 
     const configPost = {
       method: "POST",
@@ -92,9 +95,9 @@ const CookieStandAdmin = (props) => {
           hourly_sales: item.hourly_sales,
         };
         arr2.push(storeData);
-        setCookiesData([...cookiesData, ...arr2]);
+        setCookiesData(res.data);
 
-        return storeData;
+        return res.data;
       });
 
       let arr1 = [];
@@ -102,11 +105,10 @@ const CookieStandAdmin = (props) => {
       for (let i = 0; i < hours.length; i++) {
         let sum = 0;
 
-        for (let j = 0; j < cookiesData.length; j++) {
-          sum += cookiesData[j].hourly_sales[i];
+        for (let j = 0; j < arr2.length; j++) {
+          sum += arr2[j].hourly_sales[i];
         }
 
-        sum += storeData.hourly_sales[i];
         megaSum += sum;
         arr1.push(sum);
       }
@@ -115,13 +117,17 @@ const CookieStandAdmin = (props) => {
   
   };
 
-  const deleteHandler =  (id) => {
+  const deleteHandler =  (id,key) => {
     const configDelete = {
       method: "DELETE",
       url: `https://cookie-stand-api-issa.herokuapp.com/api/v1/cookie_stands/${id}`,
       headers: { Authorization: `Bearer ${props.token}` },
     };
-     axios(configDelete).then(function (response) {});
+  
+     axios(configDelete).then();
+     let result = cookiesData.filter(cookie => cookie.key!=key ||cookie.id!=id )
+     setCookiesData(result)
+
   };
   return (
     <main>

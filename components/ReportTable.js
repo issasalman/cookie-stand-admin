@@ -4,9 +4,9 @@ import hours from "../data";
 export default function ReportTable({ cookiesData, sumOfSums, deleteHandler }) {
   return (
     <>
-      <table className="mt-8">
-        <thead className="w-2/3 border-emerald-500 text-center ">
-          <tr className="bg-emerald-500 border border-black text-center">
+      <table className="mt-8  w-5/6">
+        <thead className="w-2/3 border-emerald-500  ">
+          <tr className="bg-emerald-500 border border-black ">
             <th className="px-20 border border-black ">Location</th>
             {hours.map((hour) => (
               <th className="px-2 border border-black">{hour}</th>
@@ -24,7 +24,7 @@ export default function ReportTable({ cookiesData, sumOfSums, deleteHandler }) {
                 {item.location}{" "}
                 <button
                   onClick={() => {
-                    deleteHandler(item.id);
+                    deleteHandler(item.id,item.key);
                   }}
                   className=" mr-2  text-red-400 float-right"
                 >
