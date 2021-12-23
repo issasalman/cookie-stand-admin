@@ -50,9 +50,13 @@ const CookieStandAdmin = (props) => {
       data: data,
     };
 
-    axios(configPost);
+    axios(configPost).then(res=>{
+      getRepliesFromAPI()
 
-    setCookiesData([...cookiesData, data]);
+
+      });;
+
+    // setCookiesData([...cookiesData, data]);
 
     let arr1 = [];
     let megaSum = 0;
@@ -95,7 +99,6 @@ const CookieStandAdmin = (props) => {
           hourly_sales: item.hourly_sales,
         };
         arr2.push(storeData);
-        setCookiesData(res.data);
 
         return res.data;
       });
@@ -112,6 +115,8 @@ const CookieStandAdmin = (props) => {
         megaSum += sum;
         arr1.push(sum);
       }
+      setCookiesData(res.data);
+
       setSumOfSums([...arr1, megaSum]);
     });
   
@@ -124,9 +129,12 @@ const CookieStandAdmin = (props) => {
       headers: { Authorization: `Bearer ${props.token}` },
     };
   
-     axios(configDelete).then();
-     let result = cookiesData.filter(cookie => cookie.key!=key ||cookie.id!=id )
-     setCookiesData(result)
+     axios(configDelete).then(res=>{
+      getRepliesFromAPI()
+
+
+      });
+
 
   };
   return (
