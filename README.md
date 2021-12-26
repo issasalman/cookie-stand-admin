@@ -12,6 +12,9 @@
 ## Pull request
 [PR2](https://github.com/issasalman/cookie-stand-admin/pull/2)
 
+## Pull request
+[PR3](https://github.com/issasalman/cookie-stand-admin/pull/3)
+
 
 ## Next.js + Tailwind CSS Example
 
