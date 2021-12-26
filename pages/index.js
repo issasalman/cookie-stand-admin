@@ -4,7 +4,7 @@ import LoginForm from '../components/LoginForm'
 import React, { useState } from "react";
 import axios from 'axios';
 
-const baseUrl ='https://cookie-stand-api-issa.herokuapp.com/';
+const baseUrl =process.env.NEXT_PUBLIC_COOKIES_API;
 const tokenUrl = baseUrl+'api/token/';
 
 

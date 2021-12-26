@@ -24,7 +24,7 @@ export default function ReportTable({ cookiesData, sumOfSums, deleteHandler }) {
                 {item.location}{" "}
                 <button
                   onClick={() => {
-                    deleteHandler(item.id,item.key);
+                    deleteHandler(item.id);
                   }}
                   className=" mr-2  text-red-400 float-right"
                 >

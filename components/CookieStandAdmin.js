@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 
-const baseUrl = "https://cookie-stand-api-issa.herokuapp.com/";
+const baseUrl = process.env.NEXT_PUBLIC_COOKIES_API;
 const responsesEndPoint = baseUrl + "api/v1/cookie_stands/";
 
 const CookieStandAdmin = (props) => {
@@ -51,7 +51,7 @@ const CookieStandAdmin = (props) => {
     };
 
     axios(configPost).then(res=>{
-      getRepliesFromAPI()
+      setCookiesData([...cookiesData,res.data]);
 
 
       });;
@@ -78,7 +78,7 @@ const CookieStandAdmin = (props) => {
     if (props.token) {
       getRepliesFromAPI();
     }
-  }, []);
+  }, [props.token]);
 
   var storeData;
   const getRepliesFromAPI = async () => {
@@ -88,28 +88,28 @@ const CookieStandAdmin = (props) => {
     axios.get(responsesEndPoint, config).then((res) => {
       console.log("hiiiia", res.data);
 
-      let arr2 = [];
-      res.data.map((item) => {
-        storeData = {
-          id: item.id,
-          location: item.location,
-          avg: item.average_cookies_per_sale,
-          min: item.minimum_customers_per_hour,
-          max: item.maximum_customers_per_hour,
-          hourly_sales: item.hourly_sales,
-        };
-        arr2.push(storeData);
+      // let arr2 = [];
+      // res.data.map((item) => {
+      //   storeData = {
+      //     id: item.id,
+      //     location: item.location,
+      //     avg: item.average_cookies_per_sale,
+      //     min: item.minimum_customers_per_hour,
+      //     max: item.maximum_customers_per_hour,
+      //     hourly_sales: item.hourly_sales,
+      //   };
+      //   arr2.push(storeData);
 
-        return res.data;
-      });
+      //   return res.data;
+      // });
 
       let arr1 = [];
       let megaSum = 0;
       for (let i = 0; i < hours.length; i++) {
         let sum = 0;
 
-        for (let j = 0; j < arr2.length; j++) {
-          sum += arr2[j].hourly_sales[i];
+        for (let j = 0; j < res.data.length; j++) {
+          sum += res.data[j].hourly_sales[i];
         }
 
         megaSum += sum;
@@ -122,10 +122,10 @@ const CookieStandAdmin = (props) => {
   
   };
 
-  const deleteHandler =  (id,key) => {
+  const deleteHandler =  (id) => {
     const configDelete = {
       method: "DELETE",
-      url: `https://cookie-stand-api-issa.herokuapp.com/api/v1/cookie_stands/${id}`,
+      url: `${process.env.NEXT_PUBLIC_COOKIES_API}api/v1/cookie_stands/${id}`,
       headers: { Authorization: `Bearer ${props.token}` },
     };
   
