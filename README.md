@@ -1,5 +1,6 @@
 # cookie-stand-admin
-
+## Deployment Url
+[D.URl](https://cookie-stand-admin-agzyede76-issasalman.vercel.app/)
 
 ## REPO
 [REPO](https://github.com/issasalman/cookie-stand-admin)
@@ -10,6 +11,9 @@
 
 ## Pull request
 [PR2](https://github.com/issasalman/cookie-stand-admin/pull/2)
+
+## Pull request
+[PR3](https://github.com/issasalman/cookie-stand-admin/pull/3)
 
 
 ## Next.js + Tailwind CSS Example
