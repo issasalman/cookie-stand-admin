@@ -1,6 +1,6 @@
 # cookie-stand-admin
 ## Deployment Url
-[D.URl](https://cookie-stand-admin-agzyede76-issasalman.vercel.app/)
+[D.URl](https://cookie-stand-admin-tawny.vercel.app/)
 
 ## REPO
 [REPO](https://github.com/issasalman/cookie-stand-admin)
